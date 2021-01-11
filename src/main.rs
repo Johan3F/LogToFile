@@ -41,7 +41,7 @@ async fn main() -> std::io::Result<()> {
     let log_file: String = env::var("LOG_FILE").unwrap_or(String::from("log.log"));
 
     HttpServer::new(move || App::new().data(AppState::new(&log_file)).service(log))
-        .bind(format!("0.0.0.0:{}", port))?
+        .bind("0.0.0.0:8899")?
         .run()
         .await
 }
