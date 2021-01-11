@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  LoggerServer:
+    image: johanvdwm/logger-server:latest
+    ports:
+      - 8899:8899
+    volumes:
+      - ./:/app
+    environment:
+      - LOG_FILE=test.log

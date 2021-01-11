@@ -8,3 +8,8 @@ For running this image via docker:
 ```bash
 docker run -d --name logger-server -p 8899:8899 -v $(pwd):/app johanvdwm/logger-server:latest
 ```
+
+### Environmental variables
+| Variable 	| Comments 	|
+|----------	|----------	|
+|LOG_FILE | It will rename the log file from the defaulted log.log to the given name |
