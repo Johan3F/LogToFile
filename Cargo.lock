@@ -875,8 +875,9 @@ dependencies = [
 
 [[package]]
 name = "logger_server"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
+ "actix-rt",
  "actix-web",
 ]
 

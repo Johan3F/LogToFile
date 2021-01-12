@@ -9,7 +9,7 @@ use std::env;
 
 // App state
 struct AppState {
-    buffer: Arc<Mutex<File>>,
+    buffer: Arc<Mutex<dyn Write>>,
 }
 
 impl AppState {
@@ -50,4 +50,40 @@ async fn main() -> std::io::Result<()> {
         .bind("0.0.0.0:8899")?
         .run()
         .await
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use actix_web::{test, App};
+    use std::str;
+
+    fn new(buffer: Arc<Mutex<Vec<u8>>>) -> AppState {
+        return AppState { buffer };
+    }
+
+    #[actix_rt::test]
+    async fn test_index_get() {
+        let expected_string = String::from("test-string");
+        let buffer = Arc::new(Mutex::new(Vec::new()));
+
+        let mut app = test::init_service(App::new().data(new(buffer.clone())).service(log)).await;
+
+        let req = test::TestRequest::post()
+            .uri("/log")
+            .set_payload(expected_string.clone())
+            .to_request();
+
+        let resp = test::read_response(&mut app, req).await;
+
+        assert_eq!(resp, String::from("Ok"));
+
+        let gotten_buffer = &*buffer.lock().unwrap();
+        let gotten_string = match str::from_utf8(gotten_buffer) {
+            Ok(string) => string,
+            Err(error) => panic!(error),
+        };
+        let expected_string = format!("{}\n", expected_string);
+        assert_eq!(gotten_string, expected_string);
+    }
 }
