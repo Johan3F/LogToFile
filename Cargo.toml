@@ -1,6 +1,6 @@
 [package]
-name = "LoggerServer"
-version = "0.1.0"
+name = "logger_server"
+version = "1.0.1"
 authors = ["Johan"]
 edition = "2018"
 

@@ -1,7 +1,7 @@
 # Simple logger to file
 Simple server to log everything that comes in the `/log` endpoint to a file.
 No parsing no anything, just dump it into the file.
-It opens and closes the file on each message, is not meant for performance.
+It opens the file once, and writes on that buffer. Don't expect the file to be re-created or any failure if you delete it during run time
 
 ## Run docker
 For running this image via docker:
