@@ -1,3 +1,5 @@
+![Rust](https://github.com/Johan3F/LogToFile/workflows/Rust/badge.svg?branch=master)
+
 # Simple logger to file
 Simple server to log everything that comes in the `/log` endpoint to a file.
 No parsing no anything, just dump it into the file.
